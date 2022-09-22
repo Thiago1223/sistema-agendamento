@@ -7,13 +7,27 @@ public class Especialidade {
 	private String nome;
 	private String descricao;
 	
+	// Construtores da classe
+	public Especialidade(String nome) {
+		this.nome = nome;
+	}
+	
+	public Especialidade(String nome, String descricao) {
+		this.nome = nome;
+		this.descricao = descricao;
+	}
+	
+	public Especialidade() {
+		
+	}
+	
 	// Métodos de acesso aos atributos
 	public void setNome(String nome) {
 		
 		if (nome.length() >= 3) {
 			this.nome = nome;
 		} else {
-			JOptionPane.showMessageDialog(null, nome + " não é um nome válido!\nDeve conter pelo menos 3 letras!");
+			JOptionPane.showMessageDialog(null, nome + "Não é um nome válido!\nDeve conter pelo menos 3 letras!");
 		}
 		
 	}
