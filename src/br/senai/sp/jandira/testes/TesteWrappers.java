@@ -10,7 +10,7 @@ public class TesteWrappers {
 		
 		int a = 5;
 		
-		Integer b = 5;
+		Integer b = 5; //wrapper = embrulhar, empacotar, envolver
 		
 		Double x = 2.9;
 		
@@ -37,7 +37,7 @@ public class TesteWrappers {
 		e4.setNome("Clínico geral");
 		e4.setDescricao("Sabe de tudo um pouco e um pouco de tudo!");
 		
-		//Especialidade[]	especialidades = {e1, e2, e3, e4};
+		//Especialidade[] especialidades = {e1, e2, e3, e4};
 		
 		Especialidade e5 = new Especialidade();
 		e5.setNome("Pediatria");
