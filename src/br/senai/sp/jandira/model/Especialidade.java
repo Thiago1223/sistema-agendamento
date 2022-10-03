@@ -3,7 +3,7 @@ package br.senai.sp.jandira.model;
 import javax.swing.JOptionPane;
 
 public class Especialidade {
-    
+
     private static int contador = 99;
     private Integer codigo;
     private String nome;
@@ -29,7 +29,6 @@ public class Especialidade {
     }
 
     // Métodos de acesso aos atributos
-
     public int getContador() {
         return contador;
     }
@@ -37,7 +36,11 @@ public class Especialidade {
     public Integer getCodigo() {
         return codigo;
     }
-    
+
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
+    }
+
     public void setNome(String nome) {
 
         if (nome.length() >= 3) {
