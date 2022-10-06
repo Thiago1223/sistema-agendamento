@@ -27,11 +27,11 @@ public class EspecialidadeDao {
                 return e;
             }
         }
-        
+
         return null;
-      
+
     }
-    
+
     public static void atualizar(Especialidade especialidadeAtualizada) { // UPDATE
         for (Especialidade e : especialidades) {
             if (e.getCodigo() == especialidadeAtualizada.getCodigo()) {
@@ -40,7 +40,7 @@ public class EspecialidadeDao {
             }
         }
     }
-        
+
     public static void excluir(Integer codigo) { // DELETE
 
         for (Especialidade e : especialidades) {
@@ -50,6 +50,19 @@ public class EspecialidadeDao {
             }
         }
 
+    }
+    
+    // Criar uma lista inicial de especialidades
+    public static void criarListaDeEspecialidades() {
+        Especialidade e1 = new Especialidade("Cardiologia", "Parte da medicina que cuida do coração.");
+        Especialidade e2 = new Especialidade("Fisioterapia", "Parte da medicina que trabalha a prevenção de lesões e doenças.");
+        Especialidade e3 = new Especialidade("Otorrinolaringologia", "Parte da medicina que estuda as doenças do ouvido.");
+        Especialidade e4 = new Especialidade("Pediatria", "Parte da medicina que cuida da saúde das crianças.");
+        
+        especialidades.add(e1);
+        especialidades.add(e2);
+        especialidades.add(e3);
+        especialidades.add(e4);
     }
 
 }
