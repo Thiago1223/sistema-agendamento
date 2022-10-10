@@ -2,6 +2,7 @@ package br.senai.sp.jandira.dao;
 
 import br.senai.sp.jandira.model.Especialidade;
 import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 public class EspecialidadeDao {
 
@@ -51,18 +52,36 @@ public class EspecialidadeDao {
         }
 
     }
-    
+
     // Criar uma lista inicial de especialidades
     public static void criarListaDeEspecialidades() {
         Especialidade e1 = new Especialidade("Cardiologia", "Parte da medicina que cuida do coração.");
         Especialidade e2 = new Especialidade("Fisioterapia", "Parte da medicina que trabalha a prevenção de lesões e doenças.");
         Especialidade e3 = new Especialidade("Otorrinolaringologia", "Parte da medicina que estuda as doenças do ouvido.");
         Especialidade e4 = new Especialidade("Pediatria", "Parte da medicina que cuida da saúde das crianças.");
-        
+
         especialidades.add(e1);
         especialidades.add(e2);
         especialidades.add(e3);
         especialidades.add(e4);
+
+    }
+
+    public static DefaultTableModel getTabelaEspecialidades() {
+
+        String[] titulo = {"CÓDIGO", "NOME DA ESPECIALIDADE", "DESCRIÇÃO"};
+
+        String[][] dados = new String[especialidades.size()][3];
+
+        for (Especialidade e : especialidades) {
+            int i = especialidades.indexOf(e);
+            dados[i][0] = e.getCodigo().toString();
+            dados[i][1] = e.getNome();
+            dados[i][2] = e.getDescricao();
+        }
+
+        return new DefaultTableModel(dados, titulo);
+
     }
 
 }
