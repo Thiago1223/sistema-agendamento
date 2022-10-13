@@ -154,11 +154,11 @@ public class HomeFrame extends javax.swing.JFrame {
         panelHome.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         panelHome.setLayout(null);
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 0, 0));
         jLabel3.setText("SISACON");
         panelHome.add(jLabel3);
-        jLabel3.setBounds(40, 50, 160, 48);
+        jLabel3.setBounds(40, 50, 170, 50);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
