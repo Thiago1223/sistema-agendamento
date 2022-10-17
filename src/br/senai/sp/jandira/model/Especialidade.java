@@ -12,18 +12,20 @@ public class Especialidade {
     // Construtores da classe
     public Especialidade(String nome) {
         this.nome = nome;
-        this.contador++;
-        this.codigo = contador;
+        gerarCodigo();
     }
 
     public Especialidade(String nome, String descricao) {
         this.nome = nome;
         this.descricao = descricao;
-        this.contador++;
-        this.codigo = contador;
+        gerarCodigo();
     }
 
     public Especialidade() { // Construtor Default / Padrão
+        gerarCodigo();
+    }
+    
+    private void gerarCodigo() {
         this.contador++;
         this.codigo = contador;
     }
@@ -46,7 +48,7 @@ public class Especialidade {
         if (nome.length() >= 3) {
             this.nome = nome;
         } else {
-            JOptionPane.showMessageDialog(null, nome + "Não é um nome válido!\nDeve conter pelo menos 3 letras!");
+            JOptionPane.showMessageDialog(null, nome + " Não é um nome válido!\nDeve conter pelo menos 3 letras!");
         }
 
     }
@@ -60,7 +62,7 @@ public class Especialidade {
         if (descricao.length() >= 10) {
             this.descricao = descricao;
         } else {
-            JOptionPane.showMessageDialog(null, descricao + "A descrição deve conter pelo menos 10 caracteres!");
+            JOptionPane.showMessageDialog(null,"A descrição deve conter pelo menos 10 caracteres!");
         }
 
     }
