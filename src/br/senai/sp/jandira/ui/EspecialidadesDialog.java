@@ -90,7 +90,7 @@ public class EspecialidadesDialog extends javax.swing.JDialog {
 
         labelCodigo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         labelCodigo.setForeground(new java.awt.Color(0, 0, 0));
-        labelCodigo.setText("Código");
+        labelCodigo.setText("Código:");
 
         textFieldCodigo.setEditable(false);
         textFieldCodigo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N

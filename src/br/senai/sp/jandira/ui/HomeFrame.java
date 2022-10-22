@@ -149,6 +149,11 @@ public class HomeFrame extends javax.swing.JFrame {
         buttonSair.setForeground(new java.awt.Color(255, 255, 255));
         buttonSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/imagens/sair.png"))); // NOI18N
         buttonSair.setToolTipText("Sair do sistema");
+        buttonSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSairActionPerformed(evt);
+            }
+        });
         getContentPane().add(buttonSair);
         buttonSair.setBounds(700, 100, 80, 50);
 
@@ -218,6 +223,7 @@ public class HomeFrame extends javax.swing.JFrame {
 
         panelEspecialidades.setVisible(true);
         panelHome.setVisible(false);
+        panelPlanoDeSaude.setVisible(false);
 
     }//GEN-LAST:event_buttonEspecialidadesActionPerformed
 
@@ -225,17 +231,25 @@ public class HomeFrame extends javax.swing.JFrame {
         
         panelPlanoDeSaude.setVisible(true);
         panelHome.setVisible(false);
+        panelEspecialidades.setVisible(false);
         
     }//GEN-LAST:event_buttonPlanoDeSaudeActionPerformed
 
     private void buttonHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHomeActionPerformed
+        
+        panelPlanoDeSaude.setVisible(false);
         panelEspecialidades.setVisible(false);
         panelHome.setVisible(true);
+        
     }//GEN-LAST:event_buttonHomeActionPerformed
 
     private void buttonAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAgendaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonAgendaActionPerformed
+
+    private void buttonSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSairActionPerformed
+        dispose();
+    }//GEN-LAST:event_buttonSairActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAgenda;

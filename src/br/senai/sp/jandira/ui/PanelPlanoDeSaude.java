@@ -2,6 +2,7 @@ package br.senai.sp.jandira.ui;
 
 import br.senai.sp.jandira.dao.PlanoDeSaudeDao;
 import br.senai.sp.jandira.model.OperacaoEnum;
+import br.senai.sp.jandira.model.PlanoDeSaude;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
@@ -123,11 +124,39 @@ public class PanelPlanoDeSaude extends javax.swing.JPanel {
     
     private void buttonEditarPlanosDeSaudeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarPlanosDeSaudeActionPerformed
         
+        if (getLinha() != -1) {
+            editarPlanoDeSaude();
+        } else {
+            JOptionPane.showConfirmDialog(
+                    this, 
+                    "Por Favor, selecione o plano de saúde que você deseja editar.", 
+                    "Planos de Saúde", 
+                    JOptionPane.WARNING_MESSAGE);
+                    
+        }
+        
     }//GEN-LAST:event_buttonEditarPlanosDeSaudeActionPerformed
 
+    private void editarPlanoDeSaude() {
+        
+        PlanoDeSaude planoDeSaude = PlanoDeSaudeDao.getPlanoDeSaude(getCodigo());
+        
+        PlanosDeSaudeDialog planoDeSaudeDialog =
+                new PlanosDeSaudeDialog(
+                        null, 
+                        true, 
+                        planoDeSaude, 
+                        OperacaoEnum.EDITAR);
+
+        planoDeSaudeDialog.setVisible(true);
+        preencherTabela();
+    }
+    
     private void buttonNovoPlanoDeSaudeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNovoPlanoDeSaudeActionPerformed
         PlanosDeSaudeDialog planoDeSaudeDialog =
-                new PlanosDeSaudeDialog(null, true);
+                new PlanosDeSaudeDialog (
+                        null, 
+                        true, 
                         OperacaoEnum.ADICIONAR);
 
         planoDeSaudeDialog.setVisible(true);
