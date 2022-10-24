@@ -127,7 +127,7 @@ public class PanelPlanoDeSaude extends javax.swing.JPanel {
         if (getLinha() != -1) {
             editarPlanoDeSaude();
         } else {
-            JOptionPane.showConfirmDialog(
+            JOptionPane.showMessageDialog(
                     this, 
                     "Por Favor, selecione o plano de saúde que você deseja editar.", 
                     "Planos de Saúde", 

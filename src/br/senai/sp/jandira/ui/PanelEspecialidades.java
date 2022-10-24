@@ -139,7 +139,7 @@ public class PanelEspecialidades extends javax.swing.JPanel {
         if (getLinha() != -1) {
             editarEspecialidade();
         } else {
-            JOptionPane.showConfirmDialog(
+            JOptionPane.showMessageDialog(
                     this, 
                     "Por Favor, selecione a especialidade que você deseja editar.", 
                     "Especialidades", 

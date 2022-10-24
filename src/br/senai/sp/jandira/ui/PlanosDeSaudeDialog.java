@@ -48,6 +48,7 @@ public class PlanosDeSaudeDialog extends javax.swing.JDialog {
         textFieldNumeroDoPlanoDeSaude.setText(planoDeSaude.getNumero());
         textFieldValidadeDoPlanoDeSaude.setText(planoDeSaude.getValidade().toString());
         
+        
     }
     
     private void preencherTitulo() {
@@ -205,10 +206,9 @@ public class PlanosDeSaudeDialog extends javax.swing.JDialog {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(2, 2, 2)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                         .addComponent(buttonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -318,7 +318,7 @@ public class PlanosDeSaudeDialog extends javax.swing.JDialog {
         novoPlanoDeSaude.setOperadora(textFieldOperadoraDoPlanoDeSaude.getText());
         novoPlanoDeSaude.setCategoria(textFieldCategoriaDoPlanoDeSaude.getText());
         novoPlanoDeSaude.setNumero(textFieldNumeroDoPlanoDeSaude.getText());
-        novoPlanoDeSaude.setValidade(LocalDate.parse(textFieldValidadeDoPlanoDeSaude.getText(),DateTimeFormatter.ISO_DATE));
+        novoPlanoDeSaude.setValidade(LocalDate.parse(textFieldValidadeDoPlanoDeSaude.getText(),DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         
         // Gravar o objeto, através do Dao.
         PlanoDeSaudeDao.gravar(novoPlanoDeSaude);
