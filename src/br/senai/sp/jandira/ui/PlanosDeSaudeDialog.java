@@ -293,7 +293,7 @@ public class PlanosDeSaudeDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "A categoria do plano de saúde é obrigatória");
             textFieldCategoriaDoPlanoDeSaude.requestFocus();
         } else if (textFieldNumeroDoPlanoDeSaude.getText().isEmpty() == true) {
-            JOptionPane.showMessageDialog(null, "O número do plano de saúde é obrigatória");
+            JOptionPane.showMessageDialog(null, "O número do plano de saúde é obrigatório");
             textFieldNumeroDoPlanoDeSaude.requestFocus();
         } else if (textFieldValidadeDoPlanoDeSaude.getText().contains(s) == true) {
             JOptionPane.showMessageDialog(null, "A validade do plano de saúde é obrigatória");

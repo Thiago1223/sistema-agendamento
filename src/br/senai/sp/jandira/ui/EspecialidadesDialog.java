@@ -224,8 +224,14 @@ public class EspecialidadesDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_textFieldNomeDaEspecialidadeActionPerformed
 
     private void buttonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSalvarActionPerformed
-       
-        if (operacao == OperacaoEnum.ADICIONAR) {
+        
+        if (textFieldNomeDaEspecialidade.getText().isEmpty() == true) {
+            JOptionPane.showMessageDialog(null, "O nome da especialidade é obrigatório!");
+            textFieldNomeDaEspecialidade.requestFocus();
+        } else if (textFieldDescricaoDaEspecialidade.getText().isEmpty() == true) {
+            JOptionPane.showMessageDialog(null, "A descrição da especialidade é obrigatória!");
+            textFieldDescricaoDaEspecialidade.requestFocus();
+        } else if (operacao == OperacaoEnum.ADICIONAR) {
             adicionar();
         } else {
             editar();
