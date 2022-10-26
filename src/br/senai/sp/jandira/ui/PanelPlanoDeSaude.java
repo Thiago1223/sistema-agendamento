@@ -161,6 +161,7 @@ public class PanelPlanoDeSaude extends javax.swing.JPanel {
 
         planoDeSaudeDialog.setVisible(true);
         preencherTabela();
+            
     }//GEN-LAST:event_buttonNovoPlanoDeSaudeActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

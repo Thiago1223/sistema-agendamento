@@ -46,9 +46,8 @@ public class PlanosDeSaudeDialog extends javax.swing.JDialog {
         textFieldOperadoraDoPlanoDeSaude.setText(planoDeSaude.getOperadora());
         textFieldCategoriaDoPlanoDeSaude.setText(planoDeSaude.getCategoria());
         textFieldNumeroDoPlanoDeSaude.setText(planoDeSaude.getNumero());
-        textFieldValidadeDoPlanoDeSaude.setText(planoDeSaude.getValidade().toString());
-        
-        
+        textFieldValidadeDoPlanoDeSaude.setText(planoDeSaude.getValidade().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+          
     }
     
     private void preencherTitulo() {
@@ -78,7 +77,7 @@ public class PlanosDeSaudeDialog extends javax.swing.JDialog {
         labelNumeroDoPlanoDeSaude = new javax.swing.JLabel();
         textFieldNumeroDoPlanoDeSaude = new javax.swing.JTextField();
         labelValidadeDoPlanoDeSaude = new javax.swing.JLabel();
-        textFieldValidadeDoPlanoDeSaude = new javax.swing.JTextField();
+        textFieldValidadeDoPlanoDeSaude = new javax.swing.JFormattedTextField();
         buttonCancelar = new javax.swing.JButton();
         buttonSalvar = new javax.swing.JButton();
 
@@ -154,13 +153,18 @@ public class PlanosDeSaudeDialog extends javax.swing.JDialog {
         labelValidadeDoPlanoDeSaude.setText("Validade do plano:");
 
         textFieldValidadeDoPlanoDeSaude.setBackground(new java.awt.Color(255, 255, 255));
-        textFieldValidadeDoPlanoDeSaude.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         textFieldValidadeDoPlanoDeSaude.setForeground(new java.awt.Color(0, 0, 0));
+        textFieldValidadeDoPlanoDeSaude.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         textFieldValidadeDoPlanoDeSaude.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textFieldValidadeDoPlanoDeSaudeActionPerformed(evt);
             }
         });
+        try {
+            textFieldValidadeDoPlanoDeSaude.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         buttonCancelar.setBackground(new java.awt.Color(153, 153, 153));
         buttonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/imagens/cancel32.png"))); // NOI18N
@@ -187,7 +191,6 @@ public class PlanosDeSaudeDialog extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelNumeroDoPlanoDeSaude)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(labelOperadoraDoPlanoDeSaude)
@@ -195,20 +198,21 @@ public class PlanosDeSaudeDialog extends javax.swing.JDialog {
                             .addComponent(labelCategoriaDoPlanoDeSaude)
                             .addComponent(labelCodigo)
                             .addComponent(textFieldCategoriaDoPlanoDeSaude, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                            .addComponent(textFieldOperadoraDoPlanoDeSaude, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                            .addComponent(textFieldNumeroDoPlanoDeSaude, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                            .addComponent(textFieldOperadoraDoPlanoDeSaude)
+                            .addComponent(textFieldNumeroDoPlanoDeSaude))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(73, 73, 73)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelValidadeDoPlanoDeSaude)
-                                    .addComponent(textFieldValidadeDoPlanoDeSaude, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(textFieldValidadeDoPlanoDeSaude, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(labelValidadeDoPlanoDeSaude)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                        .addComponent(buttonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                                .addGap(84, 84, 84)
+                                .addComponent(buttonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelNumeroDoPlanoDeSaude))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -223,11 +227,10 @@ public class PlanosDeSaudeDialog extends javax.swing.JDialog {
                     .addComponent(labelValidadeDoPlanoDeSaude))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(textFieldOperadoraDoPlanoDeSaude, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelCategoriaDoPlanoDeSaude))
+                    .addComponent(textFieldOperadoraDoPlanoDeSaude, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textFieldValidadeDoPlanoDeSaude, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelCategoriaDoPlanoDeSaude)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textFieldCategoriaDoPlanoDeSaude, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
@@ -245,10 +248,10 @@ public class PlanosDeSaudeDialog extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -280,11 +283,26 @@ public class PlanosDeSaudeDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonCancelarActionPerformed
 
     private void buttonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSalvarActionPerformed
-        if (operacao == OperacaoEnum.ADICIONAR) {
+        
+        CharSequence s = " ";
+        
+        if (textFieldOperadoraDoPlanoDeSaude.getText().isEmpty() == true) {
+            JOptionPane.showMessageDialog(null, "A operadora do plano de saúde é obrigatória!");
+            textFieldOperadoraDoPlanoDeSaude.requestFocus();
+        } else if (textFieldCategoriaDoPlanoDeSaude.getText().isEmpty() == true) {
+            JOptionPane.showMessageDialog(null, "A categoria do plano de saúde é obrigatória");
+            textFieldCategoriaDoPlanoDeSaude.requestFocus();
+        } else if (textFieldNumeroDoPlanoDeSaude.getText().isEmpty() == true) {
+            JOptionPane.showMessageDialog(null, "O número do plano de saúde é obrigatória");
+            textFieldNumeroDoPlanoDeSaude.requestFocus();
+        } else if (textFieldValidadeDoPlanoDeSaude.getText().contains(s) == true) {
+            JOptionPane.showMessageDialog(null, "A validade do plano de saúde é obrigatória");
+            textFieldValidadeDoPlanoDeSaude.requestFocus();
+        } else if (operacao == OperacaoEnum.ADICIONAR) {
             adicionar();
         } else {
             editar();
-        }
+        }     
     }//GEN-LAST:event_buttonSalvarActionPerformed
 
     private void textFieldNumeroDoPlanoDeSaudeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldNumeroDoPlanoDeSaudeActionPerformed
@@ -299,7 +317,7 @@ public class PlanosDeSaudeDialog extends javax.swing.JDialog {
         planoDeSaude.setOperadora(textFieldOperadoraDoPlanoDeSaude.getText());
         planoDeSaude.setCategoria(textFieldCategoriaDoPlanoDeSaude.getText());
         planoDeSaude.setNumero(textFieldNumeroDoPlanoDeSaude.getText());
-        planoDeSaude.setValidade(LocalDate.parse(textFieldValidadeDoPlanoDeSaude.getText(),DateTimeFormatter.ISO_DATE));
+        planoDeSaude.setValidade(LocalDate.parse(textFieldValidadeDoPlanoDeSaude.getText(),DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         
         PlanoDeSaudeDao.atualizar(planoDeSaude);
         
@@ -347,6 +365,6 @@ public class PlanosDeSaudeDialog extends javax.swing.JDialog {
     private javax.swing.JTextField textFieldCodigo;
     private javax.swing.JTextField textFieldNumeroDoPlanoDeSaude;
     private javax.swing.JTextField textFieldOperadoraDoPlanoDeSaude;
-    private javax.swing.JTextField textFieldValidadeDoPlanoDeSaude;
+    private javax.swing.JFormattedTextField textFieldValidadeDoPlanoDeSaude;
     // End of variables declaration//GEN-END:variables
 }
