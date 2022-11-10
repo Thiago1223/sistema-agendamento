@@ -189,9 +189,9 @@ private void ajustarTabela() {
 
         //Definir a largura das colunas
         tablePlanosDeSaude.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        tablePlanosDeSaude.getColumnModel().getColumn(0).setPreferredWidth(150);
+        tablePlanosDeSaude.getColumnModel().getColumn(0).setPreferredWidth(120);
         tablePlanosDeSaude.getColumnModel().getColumn(1).setPreferredWidth(190);
-        tablePlanosDeSaude.getColumnModel().getColumn(2).setPreferredWidth(100);
+        tablePlanosDeSaude.getColumnModel().getColumn(2).setPreferredWidth(130);
         tablePlanosDeSaude.getColumnModel().getColumn(3).setPreferredWidth(150);
         tablePlanosDeSaude.getColumnModel().getColumn(4).setPreferredWidth(150);
 

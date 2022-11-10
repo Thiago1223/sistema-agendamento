@@ -1,17 +1,43 @@
 package br.senai.sp.jandira.dao;
 
+import br.senai.sp.jandira.model.Especialidade;
 import br.senai.sp.jandira.model.PlanoDeSaude;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class PlanoDeSaudeDao {
+    
+    private final static String URL = "C:\\Users\\22282213\\gravar\\PlanoDeSaude.txt";
+    private final static Path PATH = Paths.get(URL);
     
     private static ArrayList<PlanoDeSaude> planos = new ArrayList<>();
     
     public static void gravar(PlanoDeSaude p) {
         planos.add(p);
+        
+        try {
+            BufferedWriter escritor = Files.newBufferedWriter(
+                    PATH,
+                    StandardOpenOption.APPEND, 
+                    StandardOpenOption.WRITE);
+            
+            escritor.write(p.getPlanoDeSaudeSeparadoPorPontoEVirgula());
+            escritor.newLine();
+            escritor.close();
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro");
+        }
+        
     }
     
     public static ArrayList<PlanoDeSaude> getPlanosDeSaude() {
@@ -51,15 +77,39 @@ public class PlanoDeSaudeDao {
     }
     
     public static void criarListaDePlanosDeSaude() {
-        PlanoDeSaude p1 = new PlanoDeSaude("Unimed", "Bronze", "9832728390 12", LocalDate.of(2023, 10, 15));
-        PlanoDeSaude p2 = new PlanoDeSaude("Notredame", "Platina", "2103927860 05", LocalDate.of(2010, 12, 22));
-        PlanoDeSaude p3 = new PlanoDeSaude("Bradesco", "Prata", "6727924627 22", LocalDate.of(2033, 11, 13));
-        PlanoDeSaude p4 = new PlanoDeSaude("Amil", "Ouro", "2183747678 52", LocalDate.of(2013, 9, 5));
         
-        planos.add(p1);
-        planos.add(p2);
-        planos.add(p3);
-        planos.add(p4);
+        try {
+            BufferedReader leitor = Files.newBufferedReader(PATH);
+            
+            String linha = leitor.readLine();
+            
+            while (linha != null) {
+                
+                // Transformar os dados da linha em uma especialidade
+                String[] vetor = linha.split(";");
+                
+                PlanoDeSaude p = new PlanoDeSaude(
+                        vetor[1], 
+                        vetor[2],
+                        vetor[3],
+                        LocalDate.parse(vetor[4]),
+                        Integer.valueOf(vetor[0]));
+                
+                // Guardar a especialidade na lista
+                planos.add(p);
+                
+                // Ler a próxima linha
+                linha = leitor.readLine();
+                
+            }
+            
+            leitor.close();
+            
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(
+                    null, 
+                    "Ocorreu um erro ao ler o arquivo.");
+        }
 
     }
     

@@ -82,7 +82,6 @@ public class PlanosDeSaudeDialog extends javax.swing.JDialog {
         buttonSalvar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(614, 500));
 
         jPanel1.setBackground(new java.awt.Color(51, 102, 255));
         jPanel1.setLayout(null);
@@ -290,13 +289,13 @@ public class PlanosDeSaudeDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "A operadora do plano de saúde é obrigatória!");
             textFieldOperadoraDoPlanoDeSaude.requestFocus();
         } else if (textFieldCategoriaDoPlanoDeSaude.getText().isEmpty() == true) {
-            JOptionPane.showMessageDialog(null, "A categoria do plano de saúde é obrigatória");
+            JOptionPane.showMessageDialog(null, "A categoria do plano de saúde é obrigatória!");
             textFieldCategoriaDoPlanoDeSaude.requestFocus();
         } else if (textFieldNumeroDoPlanoDeSaude.getText().isEmpty() == true) {
-            JOptionPane.showMessageDialog(null, "O número do plano de saúde é obrigatório");
+            JOptionPane.showMessageDialog(null, "O número do plano de saúde é obrigatório!");
             textFieldNumeroDoPlanoDeSaude.requestFocus();
         } else if (textFieldValidadeDoPlanoDeSaude.getText().contains(s) == true) {
-            JOptionPane.showMessageDialog(null, "A validade do plano de saúde é obrigatória");
+            JOptionPane.showMessageDialog(null, "A validade do plano de saúde é obrigatória!");
             textFieldValidadeDoPlanoDeSaude.requestFocus();
         } else if (operacao == OperacaoEnum.ADICIONAR) {
             adicionar();
