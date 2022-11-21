@@ -1,6 +1,7 @@
 package br.senai.sp.jandira.ui;
 
 import br.senai.sp.jandira.dao.MedicoDao;
+import br.senai.sp.jandira.model.Medico;
 import br.senai.sp.jandira.model.OperacaoEnum;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -12,6 +13,7 @@ public class PanelMedico extends javax.swing.JPanel {
     public PanelMedico() {
         initComponents();
         MedicoDao.criarListaDeMedicos();
+        ajustarTabela();
         preencherTabela();
     }
     
@@ -123,20 +125,44 @@ public class PanelMedico extends javax.swing.JPanel {
     private void buttonEditarMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarMedicosActionPerformed
 
         if (getLinha() != -1) {
-//            editarMedico();
+            editarMedico();
         } else {
             JOptionPane.showMessageDialog(
                 this,
                 "Por Favor, selecione o médico que você deseja editar.",
-                "Especialidades",
+                "Médicos",
                 JOptionPane.WARNING_MESSAGE);
 
         }
 
     }//GEN-LAST:event_buttonEditarMedicosActionPerformed
 
+    private void editarMedico() {
+        
+        Medico medico = MedicoDao.getMedico(getCodigo());
+        
+        MedicoDialog medicoDialog =
+                new MedicoDialog(
+                        null, 
+                        true, 
+                        medico, 
+                        OperacaoEnum.EDITAR);
+
+        medicoDialog.setVisible(true);
+        preencherTabela();
+    }
+    
     private void buttonNovoMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNovoMedicoActionPerformed
 
+        MedicoDialog medicoDialog =
+                new MedicoDialog (
+                        null, 
+                        true, 
+                        OperacaoEnum.ADICIONAR);
+
+        medicoDialog.setVisible(true);
+        preencherTabela();
+        
     }//GEN-LAST:event_buttonNovoMedicoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

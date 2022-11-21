@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -135,6 +136,8 @@ public class MedicoDao {
                         vetor[1],
                         vetor[2],
                         vetor[3],
+                        vetor[4],
+                        LocalDate.parse(vetor[5]),
                         Integer.valueOf(vetor[0]));
 
                 // Guardar a especialidade na lista

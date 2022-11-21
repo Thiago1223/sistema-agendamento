@@ -14,13 +14,14 @@ public class Medico {
     private LocalDate dataDeNascimento;
     private Especialidade[] especialidades;
     
-    public Medico(String crm, String nome, String telefone, String email, LocalDate dataDeNascimento) {
+    public Medico(String crm, String nome, String telefone, String email, LocalDate dataDeNascimento, Integer codigo) {
         this.crm = crm;
         this.nome = nome;
         this.telefone = telefone;
         this.email = email;
         this.dataDeNascimento = dataDeNascimento;
-        gerarCodigo();
+        this.codigo = codigo;
+        this.contador = codigo;
     }
     
     public Medico() {

@@ -1,10 +1,63 @@
 package br.senai.sp.jandira.ui;
 
-public class MedicoDialog extends javax.swing.JDialog {
+import br.senai.sp.jandira.dao.MedicoDao;
+import br.senai.sp.jandira.model.Medico;
+import br.senai.sp.jandira.model.OperacaoEnum;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
 
-    public MedicoDialog(java.awt.Frame parent, boolean modal) {
+public class MedicoDialog extends javax.swing.JDialog {
+    
+    private Medico medico;
+    private OperacaoEnum operacao;
+
+    public MedicoDialog(
+            java.awt.Frame parent, 
+            boolean modal,
+            OperacaoEnum operacao) {
+        
         super(parent, modal);
         initComponents();
+        this.operacao = operacao;
+        preencherTitulo();
+    }
+    
+    public MedicoDialog(
+            java.awt.Frame parent, 
+            boolean modal,
+            Medico m,
+            OperacaoEnum operacao) {
+        
+        super(parent, modal);
+        initComponents();
+        
+        medico = m;
+        this.operacao = operacao;
+        
+        preencherFormulario();
+        preencherTitulo();
+
+    }
+    
+    private void preencherFormulario() {
+        textFieldCodigo.setText(medico.getCodigo().toString());
+        textFieldCrm.setText(medico.getCrm());
+        textFieldNomeDoMedico.setText(medico.getNome());
+        textFieldTelefone.setText(medico.getTelefone());
+        textFieldEmail.setText(medico.getEmail());
+        textFieldDataDeNascimento.setText(medico.getDataDeNascimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+    }
+    
+    private void preencherTitulo() {
+        labelTitulo.setText("Médicos - " + operacao);
+        
+        if (operacao == OperacaoEnum.EDITAR) {
+            labelTitulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/imagens/editar.png")));
+        } else {
+            labelTitulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/imagens/adicionar.png")));
+        }
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -16,14 +69,24 @@ public class MedicoDialog extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         labelCodigo = new javax.swing.JLabel();
         textFieldCodigo = new javax.swing.JTextField();
-        labelOperadoraDoPlanoDeSaude = new javax.swing.JLabel();
-        textFieldOperadoraDoPlanoDeSaude = new javax.swing.JTextField();
-        labelCategoriaDoPlanoDeSaude = new javax.swing.JLabel();
-        textFieldCategoriaDoPlanoDeSaude = new javax.swing.JTextField();
-        labelNumeroDoPlanoDeSaude = new javax.swing.JLabel();
-        textFieldNumeroDoPlanoDeSaude = new javax.swing.JTextField();
-        labelValidadeDoPlanoDeSaude = new javax.swing.JLabel();
-        textFieldValidadeDoPlanoDeSaude = new javax.swing.JFormattedTextField();
+        labelCrm = new javax.swing.JLabel();
+        textFieldCrm = new javax.swing.JTextField();
+        labelNomeDoMedico = new javax.swing.JLabel();
+        textFieldNomeDoMedico = new javax.swing.JTextField();
+        labelTelefone = new javax.swing.JLabel();
+        textFieldTelefone = new javax.swing.JTextField();
+        labelEmail = new javax.swing.JLabel();
+        textFieldEmail = new javax.swing.JTextField();
+        labelDataDeNascimento = new javax.swing.JLabel();
+        textFieldDataDeNascimento = new javax.swing.JFormattedTextField();
+        labelEspecialidades = new javax.swing.JLabel();
+        scrollEspecialidades = new javax.swing.JScrollPane();
+        listEspecialidades = new javax.swing.JList<>();
+        labelEspecialidadesDoMedico = new javax.swing.JLabel();
+        buttonPassarPraDireita = new javax.swing.JButton();
+        buttonPassarPraEsquerda = new javax.swing.JButton();
+        scrollEspecialidadesDoMedico = new javax.swing.JScrollPane();
+        listEspecialidadesDoMedico = new javax.swing.JList<>();
         buttonCancelar = new javax.swing.JButton();
         buttonSalvar = new javax.swing.JButton();
 
@@ -41,7 +104,7 @@ public class MedicoDialog extends javax.swing.JDialog {
         labelTitulo.setBounds(10, 20, 370, 32);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 770, 70);
+        jPanel1.setBounds(0, 0, 820, 70);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalhes do Plano de Saúde:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 18), new java.awt.Color(255, 0, 0))); // NOI18N
         jPanel2.setLayout(null);
@@ -50,7 +113,7 @@ public class MedicoDialog extends javax.swing.JDialog {
         labelCodigo.setForeground(new java.awt.Color(0, 0, 0));
         labelCodigo.setText("Código:");
         jPanel2.add(labelCodigo);
-        labelCodigo.setBounds(31, 53, 65, 25);
+        labelCodigo.setBounds(30, 50, 65, 25);
 
         textFieldCodigo.setEditable(false);
         textFieldCodigo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -61,80 +124,148 @@ public class MedicoDialog extends javax.swing.JDialog {
             }
         });
         jPanel2.add(textFieldCodigo);
-        textFieldCodigo.setBounds(31, 84, 100, 35);
+        textFieldCodigo.setBounds(30, 80, 100, 35);
 
-        labelOperadoraDoPlanoDeSaude.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        labelOperadoraDoPlanoDeSaude.setForeground(new java.awt.Color(0, 0, 0));
-        labelOperadoraDoPlanoDeSaude.setText("CRM:");
-        jPanel2.add(labelOperadoraDoPlanoDeSaude);
-        labelOperadoraDoPlanoDeSaude.setBounds(160, 50, 50, 25);
+        labelCrm.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        labelCrm.setForeground(new java.awt.Color(0, 0, 0));
+        labelCrm.setText("CRM:");
+        jPanel2.add(labelCrm);
+        labelCrm.setBounds(160, 50, 50, 25);
 
-        textFieldOperadoraDoPlanoDeSaude.setBackground(new java.awt.Color(255, 255, 255));
-        textFieldOperadoraDoPlanoDeSaude.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        textFieldOperadoraDoPlanoDeSaude.setForeground(new java.awt.Color(0, 0, 0));
-        textFieldOperadoraDoPlanoDeSaude.addActionListener(new java.awt.event.ActionListener() {
+        textFieldCrm.setBackground(new java.awt.Color(255, 255, 255));
+        textFieldCrm.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        textFieldCrm.setForeground(new java.awt.Color(0, 0, 0));
+        textFieldCrm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldOperadoraDoPlanoDeSaudeActionPerformed(evt);
+                textFieldCrmActionPerformed(evt);
             }
         });
-        jPanel2.add(textFieldOperadoraDoPlanoDeSaude);
-        textFieldOperadoraDoPlanoDeSaude.setBounds(160, 80, 200, 35);
+        jPanel2.add(textFieldCrm);
+        textFieldCrm.setBounds(160, 80, 200, 35);
 
-        labelCategoriaDoPlanoDeSaude.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        labelCategoriaDoPlanoDeSaude.setForeground(new java.awt.Color(0, 0, 0));
-        labelCategoriaDoPlanoDeSaude.setText("Categoria do plano:");
-        jPanel2.add(labelCategoriaDoPlanoDeSaude);
-        labelCategoriaDoPlanoDeSaude.setBounds(31, 197, 167, 25);
+        labelNomeDoMedico.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        labelNomeDoMedico.setForeground(new java.awt.Color(0, 0, 0));
+        labelNomeDoMedico.setText("Nome do(a) médico(a):");
+        jPanel2.add(labelNomeDoMedico);
+        labelNomeDoMedico.setBounds(390, 50, 200, 25);
 
-        textFieldCategoriaDoPlanoDeSaude.setBackground(new java.awt.Color(255, 255, 255));
-        textFieldCategoriaDoPlanoDeSaude.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        textFieldCategoriaDoPlanoDeSaude.setForeground(new java.awt.Color(0, 0, 0));
-        textFieldCategoriaDoPlanoDeSaude.addActionListener(new java.awt.event.ActionListener() {
+        textFieldNomeDoMedico.setBackground(new java.awt.Color(255, 255, 255));
+        textFieldNomeDoMedico.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        textFieldNomeDoMedico.setForeground(new java.awt.Color(0, 0, 0));
+        textFieldNomeDoMedico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldCategoriaDoPlanoDeSaudeActionPerformed(evt);
+                textFieldNomeDoMedicoActionPerformed(evt);
             }
         });
-        jPanel2.add(textFieldCategoriaDoPlanoDeSaude);
-        textFieldCategoriaDoPlanoDeSaude.setBounds(31, 228, 200, 35);
+        jPanel2.add(textFieldNomeDoMedico);
+        textFieldNomeDoMedico.setBounds(390, 80, 370, 35);
 
-        labelNumeroDoPlanoDeSaude.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        labelNumeroDoPlanoDeSaude.setForeground(new java.awt.Color(0, 0, 0));
-        labelNumeroDoPlanoDeSaude.setText("Número do plano:");
-        jPanel2.add(labelNumeroDoPlanoDeSaude);
-        labelNumeroDoPlanoDeSaude.setBounds(31, 268, 154, 25);
+        labelTelefone.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        labelTelefone.setForeground(new java.awt.Color(0, 0, 0));
+        labelTelefone.setText("Telefone:");
+        jPanel2.add(labelTelefone);
+        labelTelefone.setBounds(30, 130, 90, 25);
 
-        textFieldNumeroDoPlanoDeSaude.setBackground(new java.awt.Color(255, 255, 255));
-        textFieldNumeroDoPlanoDeSaude.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        textFieldNumeroDoPlanoDeSaude.setForeground(new java.awt.Color(0, 0, 0));
-        textFieldNumeroDoPlanoDeSaude.addActionListener(new java.awt.event.ActionListener() {
+        textFieldTelefone.setBackground(new java.awt.Color(255, 255, 255));
+        textFieldTelefone.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        textFieldTelefone.setForeground(new java.awt.Color(0, 0, 0));
+        textFieldTelefone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldNumeroDoPlanoDeSaudeActionPerformed(evt);
+                textFieldTelefoneActionPerformed(evt);
             }
         });
-        jPanel2.add(textFieldNumeroDoPlanoDeSaude);
-        textFieldNumeroDoPlanoDeSaude.setBounds(31, 299, 200, 35);
+        jPanel2.add(textFieldTelefone);
+        textFieldTelefone.setBounds(30, 160, 200, 35);
 
-        labelValidadeDoPlanoDeSaude.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        labelValidadeDoPlanoDeSaude.setForeground(new java.awt.Color(0, 0, 0));
-        labelValidadeDoPlanoDeSaude.setText("Validade do plano:");
-        jPanel2.add(labelValidadeDoPlanoDeSaude);
-        labelValidadeDoPlanoDeSaude.setBounds(304, 125, 159, 25);
+        labelEmail.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        labelEmail.setForeground(new java.awt.Color(0, 0, 0));
+        labelEmail.setText("E-mail:");
+        jPanel2.add(labelEmail);
+        labelEmail.setBounds(260, 130, 60, 25);
 
-        textFieldValidadeDoPlanoDeSaude.setBackground(new java.awt.Color(255, 255, 255));
-        textFieldValidadeDoPlanoDeSaude.setForeground(new java.awt.Color(0, 0, 0));
-        textFieldValidadeDoPlanoDeSaude.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        textFieldValidadeDoPlanoDeSaude.addActionListener(new java.awt.event.ActionListener() {
+        textFieldEmail.setBackground(new java.awt.Color(255, 255, 255));
+        textFieldEmail.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        textFieldEmail.setForeground(new java.awt.Color(0, 0, 0));
+        textFieldEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldValidadeDoPlanoDeSaudeActionPerformed(evt);
+                textFieldEmailActionPerformed(evt);
+            }
+        });
+        jPanel2.add(textFieldEmail);
+        textFieldEmail.setBounds(260, 160, 280, 35);
+
+        labelDataDeNascimento.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        labelDataDeNascimento.setForeground(new java.awt.Color(0, 0, 0));
+        labelDataDeNascimento.setText("Data de Nascimento:");
+        jPanel2.add(labelDataDeNascimento);
+        labelDataDeNascimento.setBounds(570, 130, 180, 25);
+
+        textFieldDataDeNascimento.setBackground(new java.awt.Color(255, 255, 255));
+        textFieldDataDeNascimento.setForeground(new java.awt.Color(0, 0, 0));
+        textFieldDataDeNascimento.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        textFieldDataDeNascimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFieldDataDeNascimentoActionPerformed(evt);
             }
         });
         try {
-            textFieldValidadeDoPlanoDeSaude.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+            textFieldDataDeNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jPanel2.add(textFieldValidadeDoPlanoDeSaude);
-        textFieldValidadeDoPlanoDeSaude.setBounds(304, 156, 200, 35);
+        jPanel2.add(textFieldDataDeNascimento);
+        textFieldDataDeNascimento.setBounds(570, 160, 190, 35);
+
+        labelEspecialidades.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        labelEspecialidades.setForeground(new java.awt.Color(0, 0, 0));
+        labelEspecialidades.setText("Lista de especialidades:");
+        jPanel2.add(labelEspecialidades);
+        labelEspecialidades.setBounds(30, 210, 200, 25);
+
+        listEspecialidades.setBackground(new java.awt.Color(255, 255, 255));
+        listEspecialidades.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        listEspecialidades.setForeground(new java.awt.Color(0, 0, 0));
+        listEspecialidades.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        scrollEspecialidades.setViewportView(listEspecialidades);
+
+        jPanel2.add(scrollEspecialidades);
+        scrollEspecialidades.setBounds(30, 240, 200, 170);
+
+        labelEspecialidadesDoMedico.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        labelEspecialidadesDoMedico.setForeground(new java.awt.Color(0, 0, 0));
+        labelEspecialidadesDoMedico.setText("Especialidades do médico:");
+        jPanel2.add(labelEspecialidadesDoMedico);
+        labelEspecialidadesDoMedico.setBounds(340, 210, 230, 25);
+
+        buttonPassarPraDireita.setBackground(new java.awt.Color(0, 153, 0));
+        buttonPassarPraDireita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/imagens/seta-direita.png"))); // NOI18N
+        jPanel2.add(buttonPassarPraDireita);
+        buttonPassarPraDireita.setBounds(250, 260, 70, 50);
+
+        buttonPassarPraEsquerda.setBackground(new java.awt.Color(255, 0, 0));
+        buttonPassarPraEsquerda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/imagens/seta-esquerda.png"))); // NOI18N
+        jPanel2.add(buttonPassarPraEsquerda);
+        buttonPassarPraEsquerda.setBounds(250, 340, 70, 50);
+
+        listEspecialidadesDoMedico.setBackground(new java.awt.Color(255, 255, 255));
+        listEspecialidadesDoMedico.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        listEspecialidadesDoMedico.setForeground(new java.awt.Color(0, 0, 0));
+        listEspecialidadesDoMedico.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        scrollEspecialidadesDoMedico.setViewportView(listEspecialidadesDoMedico);
+
+        jPanel2.add(scrollEspecialidadesDoMedico);
+        scrollEspecialidadesDoMedico.setBounds(340, 240, 220, 170);
+
+        getContentPane().add(jPanel2);
+        jPanel2.setBounds(16, 88, 790, 440);
 
         buttonCancelar.setBackground(new java.awt.Color(153, 153, 153));
         buttonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/imagens/cancel32.png"))); // NOI18N
@@ -144,8 +275,8 @@ public class MedicoDialog extends javax.swing.JDialog {
                 buttonCancelarActionPerformed(evt);
             }
         });
-        jPanel2.add(buttonCancelar);
-        buttonCancelar.setBounds(438, 299, 66, 60);
+        getContentPane().add(buttonCancelar);
+        buttonCancelar.setBounds(566, 540, 100, 60);
 
         buttonSalvar.setBackground(new java.awt.Color(153, 153, 153));
         buttonSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/imagens/disquete.png"))); // NOI18N
@@ -155,34 +286,32 @@ public class MedicoDialog extends javax.swing.JDialog {
                 buttonSalvarActionPerformed(evt);
             }
         });
-        jPanel2.add(buttonSalvar);
-        buttonSalvar.setBounds(510, 299, 66, 60);
+        getContentPane().add(buttonSalvar);
+        buttonSalvar.setBounds(690, 540, 100, 60);
 
-        getContentPane().add(jPanel2);
-        jPanel2.setBounds(6, 88, 600, 380);
-
-        pack();
+        setSize(new java.awt.Dimension(836, 651));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void textFieldCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldCodigoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textFieldCodigoActionPerformed
 
-    private void textFieldOperadoraDoPlanoDeSaudeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldOperadoraDoPlanoDeSaudeActionPerformed
+    private void textFieldNomeDoMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldNomeDoMedicoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldOperadoraDoPlanoDeSaudeActionPerformed
+    }//GEN-LAST:event_textFieldNomeDoMedicoActionPerformed
 
-    private void textFieldCategoriaDoPlanoDeSaudeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldCategoriaDoPlanoDeSaudeActionPerformed
+    private void textFieldTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldTelefoneActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldCategoriaDoPlanoDeSaudeActionPerformed
+    }//GEN-LAST:event_textFieldTelefoneActionPerformed
 
-    private void textFieldNumeroDoPlanoDeSaudeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldNumeroDoPlanoDeSaudeActionPerformed
+    private void textFieldEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldEmailActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldNumeroDoPlanoDeSaudeActionPerformed
+    }//GEN-LAST:event_textFieldEmailActionPerformed
 
-    private void textFieldValidadeDoPlanoDeSaudeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldValidadeDoPlanoDeSaudeActionPerformed
+    private void textFieldDataDeNascimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldDataDeNascimentoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldValidadeDoPlanoDeSaudeActionPerformed
+    }//GEN-LAST:event_textFieldDataDeNascimentoActionPerformed
 
     private void buttonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelarActionPerformed
         dispose();
@@ -190,23 +319,99 @@ public class MedicoDialog extends javax.swing.JDialog {
 
     private void buttonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSalvarActionPerformed
 
+        CharSequence s = " ";
+        
+        if (textFieldCrm.getText().isEmpty() == true) {
+            JOptionPane.showMessageDialog(null, "O crm do médico é obrigatório!");
+            textFieldCrm.requestFocus();
+        } else if (textFieldNomeDoMedico.getText().isEmpty() == true) {
+            JOptionPane.showMessageDialog(null, "O nome do médico é obrigatório!");
+            textFieldNomeDoMedico.requestFocus();
+        } else if (textFieldTelefone.getText().isEmpty() == true) {
+            JOptionPane.showMessageDialog(null, "O telefone do médico é obrigatório!");
+            textFieldTelefone.requestFocus();
+        } else if (textFieldEmail.getText().isEmpty() == true) {
+            JOptionPane.showMessageDialog(null, "O email do médico é obrigatório!");
+            textFieldEmail.requestFocus();
+        } else if (textFieldDataDeNascimento.getText().contains(s) == true) {
+            JOptionPane.showMessageDialog(null, "A data de nascimento do médico é obrigatória!");
+            textFieldDataDeNascimento.requestFocus();
+        } else if (operacao == OperacaoEnum.ADICIONAR) {
+            adicionar();
+        } else {
+            editar();
+        }
+        
     }//GEN-LAST:event_buttonSalvarActionPerformed
 
+    private void textFieldCrmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldCrmActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textFieldCrmActionPerformed
+
+    private void editar() {
+        medico.setCrm(textFieldCrm.getText());
+        medico.setNome(textFieldNomeDoMedico.getText());
+        medico.setTelefone(textFieldTelefone.getText());
+        medico.setEmail(textFieldEmail.getText());
+        medico.setDataDeNascimento(LocalDate.parse(textFieldDataDeNascimento.getText(),DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        
+        MedicoDao.atualizar(medico);
+        
+        JOptionPane.showMessageDialog(
+                null, 
+                "Médico atualizado com sucesso!", 
+                "Médicos", 
+                JOptionPane.INFORMATION_MESSAGE);
+        
+        dispose();
+   }
+    
+    private void adicionar() {
+        // Criar um objeto especialidade
+        Medico novoMedico = new Medico();
+        novoMedico.setCrm(textFieldCrm.getText());
+        novoMedico.setNome(textFieldNomeDoMedico.getText());
+        novoMedico.setTelefone(textFieldTelefone.getText());
+        novoMedico.setEmail(textFieldEmail.getText());
+        novoMedico.setDataDeNascimento(LocalDate.parse(textFieldDataDeNascimento.getText(),DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        
+        // Gravar o objeto, através do Dao.
+        MedicoDao.gravar(novoMedico);
+        
+        JOptionPane.showMessageDialog(
+                this,
+                "Médico gravado com sucesso!",
+                "Médicos",
+                JOptionPane.INFORMATION_MESSAGE);
+        
+        dispose();
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancelar;
+    private javax.swing.JButton buttonPassarPraDireita;
+    private javax.swing.JButton buttonPassarPraEsquerda;
     private javax.swing.JButton buttonSalvar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JLabel labelCategoriaDoPlanoDeSaude;
     private javax.swing.JLabel labelCodigo;
-    private javax.swing.JLabel labelNumeroDoPlanoDeSaude;
-    private javax.swing.JLabel labelOperadoraDoPlanoDeSaude;
+    private javax.swing.JLabel labelCrm;
+    private javax.swing.JLabel labelDataDeNascimento;
+    private javax.swing.JLabel labelEmail;
+    private javax.swing.JLabel labelEspecialidades;
+    private javax.swing.JLabel labelEspecialidadesDoMedico;
+    private javax.swing.JLabel labelNomeDoMedico;
+    private javax.swing.JLabel labelTelefone;
     private javax.swing.JLabel labelTitulo;
-    private javax.swing.JLabel labelValidadeDoPlanoDeSaude;
-    private javax.swing.JTextField textFieldCategoriaDoPlanoDeSaude;
+    private javax.swing.JList<String> listEspecialidades;
+    private javax.swing.JList<String> listEspecialidadesDoMedico;
+    private javax.swing.JScrollPane scrollEspecialidades;
+    private javax.swing.JScrollPane scrollEspecialidadesDoMedico;
     private javax.swing.JTextField textFieldCodigo;
-    private javax.swing.JTextField textFieldNumeroDoPlanoDeSaude;
-    private javax.swing.JTextField textFieldOperadoraDoPlanoDeSaude;
-    private javax.swing.JFormattedTextField textFieldValidadeDoPlanoDeSaude;
+    private javax.swing.JTextField textFieldCrm;
+    private javax.swing.JFormattedTextField textFieldDataDeNascimento;
+    private javax.swing.JTextField textFieldEmail;
+    private javax.swing.JTextField textFieldNomeDoMedico;
+    private javax.swing.JTextField textFieldTelefone;
     // End of variables declaration//GEN-END:variables
 }
