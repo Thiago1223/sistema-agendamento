@@ -74,7 +74,9 @@ public class EspecialidadesDialog extends javax.swing.JDialog {
         buttonSalvar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(614, 506));
         setResizable(false);
+        getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(51, 102, 255));
         jPanel1.setLayout(null);
@@ -86,11 +88,17 @@ public class EspecialidadesDialog extends javax.swing.JDialog {
         jPanel1.add(labelTitulo);
         labelTitulo.setBounds(10, 20, 370, 32);
 
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(0, 0, 614, 70);
+
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalhes da Especialidade:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 18), new java.awt.Color(255, 0, 0))); // NOI18N
+        jPanel2.setLayout(null);
 
         labelCodigo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         labelCodigo.setForeground(new java.awt.Color(0, 0, 0));
         labelCodigo.setText("Código:");
+        jPanel2.add(labelCodigo);
+        labelCodigo.setBounds(31, 53, 65, 25);
 
         textFieldCodigo.setEditable(false);
         textFieldCodigo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -100,10 +108,14 @@ public class EspecialidadesDialog extends javax.swing.JDialog {
                 textFieldCodigoActionPerformed(evt);
             }
         });
+        jPanel2.add(textFieldCodigo);
+        textFieldCodigo.setBounds(31, 84, 100, 35);
 
         labelNomeDaEspecialidade.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         labelNomeDaEspecialidade.setForeground(new java.awt.Color(0, 0, 0));
         labelNomeDaEspecialidade.setText("Nome da especialidade:");
+        jPanel2.add(labelNomeDaEspecialidade);
+        labelNomeDaEspecialidade.setBounds(31, 131, 202, 25);
 
         textFieldNomeDaEspecialidade.setBackground(new java.awt.Color(255, 255, 255));
         textFieldNomeDaEspecialidade.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -113,10 +125,14 @@ public class EspecialidadesDialog extends javax.swing.JDialog {
                 textFieldNomeDaEspecialidadeActionPerformed(evt);
             }
         });
+        jPanel2.add(textFieldNomeDaEspecialidade);
+        textFieldNomeDaEspecialidade.setBounds(31, 162, 300, 35);
 
         labelDescricaoDaEspecialidade.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         labelDescricaoDaEspecialidade.setForeground(new java.awt.Color(0, 0, 0));
         labelDescricaoDaEspecialidade.setText("Descrição da especialidade:");
+        jPanel2.add(labelDescricaoDaEspecialidade);
+        labelDescricaoDaEspecialidade.setBounds(31, 209, 233, 25);
 
         textFieldDescricaoDaEspecialidade.setBackground(new java.awt.Color(255, 255, 255));
         textFieldDescricaoDaEspecialidade.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -126,6 +142,8 @@ public class EspecialidadesDialog extends javax.swing.JDialog {
                 textFieldDescricaoDaEspecialidadeActionPerformed(evt);
             }
         });
+        jPanel2.add(textFieldDescricaoDaEspecialidade);
+        textFieldDescricaoDaEspecialidade.setBounds(31, 240, 450, 35);
 
         buttonCancelar.setBackground(new java.awt.Color(153, 153, 153));
         buttonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/imagens/cancel32.png"))); // NOI18N
@@ -135,6 +153,8 @@ public class EspecialidadesDialog extends javax.swing.JDialog {
                 buttonCancelarActionPerformed(evt);
             }
         });
+        jPanel2.add(buttonCancelar);
+        buttonCancelar.setBounds(430, 293, 66, 60);
 
         buttonSalvar.setBackground(new java.awt.Color(153, 153, 153));
         buttonSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/imagens/disquete.png"))); // NOI18N
@@ -144,70 +164,13 @@ public class EspecialidadesDialog extends javax.swing.JDialog {
                 buttonSalvarActionPerformed(evt);
             }
         });
+        jPanel2.add(buttonSalvar);
+        buttonSalvar.setBounds(508, 293, 66, 60);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textFieldNomeDaEspecialidade, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelNomeDaEspecialidade)
-                    .addComponent(textFieldCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelDescricaoDaEspecialidade)
-                    .addComponent(labelCodigo)
-                    .addComponent(textFieldDescricaoDaEspecialidade, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(116, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(buttonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(buttonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(labelCodigo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(labelNomeDaEspecialidade)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldNomeDaEspecialidade, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(labelDescricaoDaEspecialidade)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldDescricaoDaEspecialidade, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(12, Short.MAX_VALUE))
-        );
+        getContentPane().add(jPanel2);
+        jPanel2.setBounds(6, 88, 602, 380);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
-        );
-
-        setSize(new java.awt.Dimension(630, 508));
+        setSize(new java.awt.Dimension(630, 514));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

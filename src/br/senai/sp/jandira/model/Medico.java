@@ -13,10 +13,35 @@ public class Medico {
     private String email;
     private LocalDate dataDeNascimento;
     private Especialidade[] especialidades;
+    
+    public Medico(String crm, String nome, String telefone, String email, LocalDate dataDeNascimento) {
+        this.crm = crm;
+        this.nome = nome;
+        this.telefone = telefone;
+        this.email = email;
+        this.dataDeNascimento = dataDeNascimento;
+        gerarCodigo();
+    }
+    
+    public Medico() {
+        gerarCodigo();
+    }
+    
+    public Medico(String crm, String nome, String telefone, Integer codigo) {
+        this.crm = crm;
+        this.nome = nome;
+        this.telefone = telefone;
+        this.codigo = codigo;
+        this.contador = codigo;
+    }
 
     private void gerarCodigo() {
         this.contador++;
         this.codigo = contador;
+    }
+    
+    public int getContador() {
+        return contador;
     }
 
     public Integer getCodigo() {
@@ -79,6 +104,10 @@ public class Medico {
 
     public void setEspecialidades(Especialidade[] especialidades) {
         this.especialidades = especialidades;
+    }
+    
+    public String getMedicoSeparadoPorPontoEVirgula() {
+        return this.codigo + ";" + this.crm + ";" + this.nome + ";" + this.telefone + ";" + this.email + ";" + this.dataDeNascimento;
     }
 
 }

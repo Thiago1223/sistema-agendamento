@@ -1,6 +1,6 @@
 package br.senai.sp.jandira.dao;
 
-import br.senai.sp.jandira.model.PlanoDeSaude;
+import br.senai.sp.jandira.model.Medico;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -9,23 +9,22 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class PlanoDeSaudeDao {
-
-    private final static String URL = "C:\\Users\\22282213\\gravar\\PlanoDeSaude.txt";
-    private final static String URL_TEMP = "C:\\Users\\22282213\\gravar\\PlanoDeSaude-temp.txt";
+public class MedicoDao {
+    
+    private final static String URL = "C:\\Users\\22282213\\gravar\\Medico.txt";
+    private final static String URL_TEMP = "C:\\Users\\22282213\\gravar\\Medico-temp.txt";
     private final static Path PATH = Paths.get(URL);
     private final static Path PATH_TEMP = Paths.get(URL_TEMP);
-
-    private static ArrayList<PlanoDeSaude> planos = new ArrayList<>();
-
-    public static void gravar(PlanoDeSaude p) {
-        planos.add(p);
+    
+    private static ArrayList<Medico> medicos = new ArrayList<>();
+    
+    public static void gravar(Medico m) {
+        medicos.add(m);
 
         try {
             BufferedWriter escritor = Files.newBufferedWriter(
@@ -33,7 +32,7 @@ public class PlanoDeSaudeDao {
                     StandardOpenOption.APPEND,
                     StandardOpenOption.WRITE);
 
-            escritor.write(p.getPlanoDeSaudeSeparadoPorPontoEVirgula());
+            escritor.write(m.getMedicoSeparadoPorPontoEVirgula());
             escritor.newLine();
             escritor.close();
 
@@ -42,27 +41,27 @@ public class PlanoDeSaudeDao {
         }
 
     }
-
-    public static ArrayList<PlanoDeSaude> getPlanosDeSaude() {
-        return planos;
+    
+    public static ArrayList<Medico> getMedicos() {
+        return medicos;
     }
+    
+    public static Medico getMedico(Integer codigo) {
 
-    public static PlanoDeSaude getPlanoDeSaude(Integer codigo) {
-
-        for (PlanoDeSaude p : planos) {
-            if (p.getCodigo() == codigo) {
-                return p;
+        for (Medico m : medicos) {
+            if (m.getCodigo() == codigo) {
+                return m;
             }
         }
 
         return null;
 
     }
-
-    public static void atualizar(PlanoDeSaude planoDeSaudeAtualizado) {
-        for (PlanoDeSaude p : planos) {
-            if (p.getCodigo().equals(planoDeSaudeAtualizado.getCodigo())) {
-                planos.set(planos.indexOf(p), planoDeSaudeAtualizado);
+    
+    public static void atualizar(Medico medicoAtualizado) {
+        for (Medico m : medicos) {
+            if (m.getCodigo().equals(medicoAtualizado.getCodigo())) {
+                medicos.set(medicos.indexOf(m), medicoAtualizado);
                 break;
             }
         }
@@ -70,12 +69,12 @@ public class PlanoDeSaudeDao {
         atualizarArquivo();
 
     }
-
+    
     public static void excluir(Integer codigo) {
 
-        for (PlanoDeSaude p : planos) {
-            if (p.getCodigo() == codigo) {
-                planos.remove(p);
+        for (Medico m : medicos) {
+            if (m.getCodigo() == codigo) {
+                medicos.remove(m);
                 break;
             }
         }
@@ -83,7 +82,7 @@ public class PlanoDeSaudeDao {
         atualizarArquivo();
 
     }
-
+    
     private static void atualizarArquivo() {
         // PASSO 01 - Criar uma representação dos arquivos que seráo manipulados
         File arquivoAtual = new File(URL);
@@ -102,8 +101,8 @@ public class PlanoDeSaudeDao {
             // Iterar na lista para adicionar as especialidades
             // no arquivo temporário, exceto o registro que
             // não queremos mais
-            for (PlanoDeSaude p : planos) {
-                bwTemp.write(p.getPlanoDeSaudeSeparadoPorPontoEVirgula());
+            for (Medico m : medicos) {
+                bwTemp.write(m.getMedicoSeparadoPorPontoEVirgula());
                 bwTemp.newLine();
             }
 
@@ -119,8 +118,8 @@ public class PlanoDeSaudeDao {
             ex.printStackTrace();
         }
     }
-
-    public static void criarListaDePlanosDeSaude() {
+    
+    public static void criarListaDeMedicos() {
 
         try {
             BufferedReader leitor = Files.newBufferedReader(PATH);
@@ -132,15 +131,14 @@ public class PlanoDeSaudeDao {
                 // Transformar os dados da linha em uma especialidade
                 String[] vetor = linha.split(";");
 
-                PlanoDeSaude p = new PlanoDeSaude(
+                Medico m = new Medico(
                         vetor[1],
                         vetor[2],
                         vetor[3],
-                        LocalDate.parse(vetor[4]),
                         Integer.valueOf(vetor[0]));
 
                 // Guardar a especialidade na lista
-                planos.add(p);
+                medicos.add(m);
 
                 // Ler a próxima linha
                 linha = leitor.readLine();
@@ -156,27 +154,29 @@ public class PlanoDeSaudeDao {
         }
 
     }
+    
+    public static DefaultTableModel getTabelaMedico() {
 
-    public static DefaultTableModel getTabelaPlanoDeSaude() {
+        String[] titulo = {"CÓDIGO", "CRM", "NOME", "TELEFONE"};
 
-        String[] titulo = {"CÓDIGO", "OPERADORA", "CATEGORIA", "NÚMERO", "VALIDADE"};
+        String[][] dados = new String[medicos.size()][6];
 
-        String[][] dados = new String[planos.size()][5];
-
-        for (PlanoDeSaude p : planos) {
-            int i = planos.indexOf(p);
-            dados[i][0] = p.getCodigo().toString();
-            dados[i][1] = p.getOperadora();
-            dados[i][2] = p.getCategoria();
-            dados[i][3] = p.getNumero();
-
+        for (Medico m : medicos) {
+            int i = medicos.indexOf(m);
+            dados[i][0] = m.getCodigo().toString();
+            dados[i][1] = m.getCrm();
+            dados[i][2] = m.getNome();
+            dados[i][3] = m.getTelefone();
+            dados[i][4] = m.getEmail();
+            
             DateTimeFormatter barra = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            
+            dados[i][5] = m.getDataDeNascimento().format(barra);
 
-            dados[i][4] = p.getValidade().format(barra);
         }
 
         return new DefaultTableModel(dados, titulo);
 
     }
-
+    
 }

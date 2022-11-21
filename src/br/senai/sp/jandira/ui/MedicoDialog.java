@@ -1,64 +1,10 @@
 package br.senai.sp.jandira.ui;
 
-import br.senai.sp.jandira.dao.PlanoDeSaudeDao;
-import br.senai.sp.jandira.model.OperacaoEnum;
-import br.senai.sp.jandira.model.PlanoDeSaude;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import javax.swing.JOptionPane;
+public class MedicoDialog extends javax.swing.JDialog {
 
-public class PlanosDeSaudeDialog extends javax.swing.JDialog {
-    
-    private PlanoDeSaude planoDeSaude;
-    private OperacaoEnum operacao;
-
-    public PlanosDeSaudeDialog(
-            java.awt.Frame parent, 
-            boolean modal,
-            OperacaoEnum operacao) {
-        
+    public MedicoDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.operacao = operacao;
-        preencherTitulo();
-    }
-    
-    public PlanosDeSaudeDialog(
-            java.awt.Frame parent, 
-            boolean modal,
-            PlanoDeSaude p,
-            OperacaoEnum operacao) {
-        
-        super(parent, modal);
-        initComponents();
-        
-        planoDeSaude = p;
-        this.operacao = operacao;
-        
-        preencherFormulario();
-        preencherTitulo();
-        
-    }
-    
-    private void preencherFormulario() {
-        
-        textFieldCodigo.setText(planoDeSaude.getCodigo().toString());
-        textFieldOperadoraDoPlanoDeSaude.setText(planoDeSaude.getOperadora());
-        textFieldCategoriaDoPlanoDeSaude.setText(planoDeSaude.getCategoria());
-        textFieldNumeroDoPlanoDeSaude.setText(planoDeSaude.getNumero());
-        textFieldValidadeDoPlanoDeSaude.setText(planoDeSaude.getValidade().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-          
-    }
-    
-    private void preencherTitulo() {
-        labelTitulo.setText("Planos de Saúde - " + operacao);
-        
-        if (operacao == OperacaoEnum.EDITAR) {
-            labelTitulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/imagens/editar.png")));
-        } else {
-            labelTitulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/imagens/adicionar.png")));
-        }
-        
     }
 
     @SuppressWarnings("unchecked")
@@ -92,10 +38,10 @@ public class PlanosDeSaudeDialog extends javax.swing.JDialog {
         labelTitulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/imagens/adicionar.png"))); // NOI18N
         labelTitulo.setText("Especialidades - ADICIONAR");
         jPanel1.add(labelTitulo);
-        labelTitulo.setBounds(10, 20, 400, 32);
+        labelTitulo.setBounds(10, 20, 370, 32);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 614, 70);
+        jPanel1.setBounds(0, 0, 770, 70);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalhes do Plano de Saúde:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 18), new java.awt.Color(255, 0, 0))); // NOI18N
         jPanel2.setLayout(null);
@@ -119,9 +65,9 @@ public class PlanosDeSaudeDialog extends javax.swing.JDialog {
 
         labelOperadoraDoPlanoDeSaude.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         labelOperadoraDoPlanoDeSaude.setForeground(new java.awt.Color(0, 0, 0));
-        labelOperadoraDoPlanoDeSaude.setText("Operadora do plano:");
+        labelOperadoraDoPlanoDeSaude.setText("CRM:");
         jPanel2.add(labelOperadoraDoPlanoDeSaude);
-        labelOperadoraDoPlanoDeSaude.setBounds(31, 125, 176, 25);
+        labelOperadoraDoPlanoDeSaude.setBounds(160, 50, 50, 25);
 
         textFieldOperadoraDoPlanoDeSaude.setBackground(new java.awt.Color(255, 255, 255));
         textFieldOperadoraDoPlanoDeSaude.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -132,7 +78,7 @@ public class PlanosDeSaudeDialog extends javax.swing.JDialog {
             }
         });
         jPanel2.add(textFieldOperadoraDoPlanoDeSaude);
-        textFieldOperadoraDoPlanoDeSaude.setBounds(31, 156, 200, 35);
+        textFieldOperadoraDoPlanoDeSaude.setBounds(160, 80, 200, 35);
 
         labelCategoriaDoPlanoDeSaude.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         labelCategoriaDoPlanoDeSaude.setForeground(new java.awt.Color(0, 0, 0));
@@ -215,8 +161,7 @@ public class PlanosDeSaudeDialog extends javax.swing.JDialog {
         getContentPane().add(jPanel2);
         jPanel2.setBounds(6, 88, 600, 380);
 
-        setSize(new java.awt.Dimension(630, 514));
-        setLocationRelativeTo(null);
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void textFieldCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldCodigoActionPerformed
@@ -231,33 +176,6 @@ public class PlanosDeSaudeDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_textFieldCategoriaDoPlanoDeSaudeActionPerformed
 
-    private void buttonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelarActionPerformed
-        dispose();
-    }//GEN-LAST:event_buttonCancelarActionPerformed
-
-    private void buttonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSalvarActionPerformed
-        
-        CharSequence s = " ";
-        
-        if (textFieldOperadoraDoPlanoDeSaude.getText().isEmpty() == true) {
-            JOptionPane.showMessageDialog(null, "A operadora do plano de saúde é obrigatória!");
-            textFieldOperadoraDoPlanoDeSaude.requestFocus();
-        } else if (textFieldCategoriaDoPlanoDeSaude.getText().isEmpty() == true) {
-            JOptionPane.showMessageDialog(null, "A categoria do plano de saúde é obrigatória!");
-            textFieldCategoriaDoPlanoDeSaude.requestFocus();
-        } else if (textFieldNumeroDoPlanoDeSaude.getText().isEmpty() == true) {
-            JOptionPane.showMessageDialog(null, "O número do plano de saúde é obrigatório!");
-            textFieldNumeroDoPlanoDeSaude.requestFocus();
-        } else if (textFieldValidadeDoPlanoDeSaude.getText().contains(s) == true) {
-            JOptionPane.showMessageDialog(null, "A validade do plano de saúde é obrigatória!");
-            textFieldValidadeDoPlanoDeSaude.requestFocus();
-        } else if (operacao == OperacaoEnum.ADICIONAR) {
-            adicionar();
-        } else {
-            editar();
-        }     
-    }//GEN-LAST:event_buttonSalvarActionPerformed
-
     private void textFieldNumeroDoPlanoDeSaudeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldNumeroDoPlanoDeSaudeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textFieldNumeroDoPlanoDeSaudeActionPerformed
@@ -266,43 +184,14 @@ public class PlanosDeSaudeDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_textFieldValidadeDoPlanoDeSaudeActionPerformed
 
-    private void editar() {
-        planoDeSaude.setOperadora(textFieldOperadoraDoPlanoDeSaude.getText());
-        planoDeSaude.setCategoria(textFieldCategoriaDoPlanoDeSaude.getText());
-        planoDeSaude.setNumero(textFieldNumeroDoPlanoDeSaude.getText());
-        planoDeSaude.setValidade(LocalDate.parse(textFieldValidadeDoPlanoDeSaude.getText(),DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-        
-        PlanoDeSaudeDao.atualizar(planoDeSaude);
-        
-        JOptionPane.showMessageDialog(
-                null, 
-                "Plano de Saúde atualizado com sucesso!", 
-                "Planos de Saúde", 
-                JOptionPane.INFORMATION_MESSAGE);
-        
+    private void buttonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelarActionPerformed
         dispose();
-   }
-    
-    private void adicionar() {
-        // Criar um objeto especialidade
-        PlanoDeSaude novoPlanoDeSaude = new PlanoDeSaude();
-        novoPlanoDeSaude.setOperadora(textFieldOperadoraDoPlanoDeSaude.getText());
-        novoPlanoDeSaude.setCategoria(textFieldCategoriaDoPlanoDeSaude.getText());
-        novoPlanoDeSaude.setNumero(textFieldNumeroDoPlanoDeSaude.getText());
-        novoPlanoDeSaude.setValidade(LocalDate.parse(textFieldValidadeDoPlanoDeSaude.getText(),DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-        
-        // Gravar o objeto, através do Dao.
-        PlanoDeSaudeDao.gravar(novoPlanoDeSaude);
-        
-        JOptionPane.showMessageDialog(
-                this,
-                "Plano de Saúde gravado com sucesso!",
-                "Planos de Saúde",
-                JOptionPane.INFORMATION_MESSAGE);
-        
-        dispose();
-    }
-    
+    }//GEN-LAST:event_buttonCancelarActionPerformed
+
+    private void buttonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSalvarActionPerformed
+
+    }//GEN-LAST:event_buttonSalvarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancelar;
     private javax.swing.JButton buttonSalvar;
