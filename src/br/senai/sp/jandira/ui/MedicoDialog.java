@@ -1,6 +1,8 @@
 package br.senai.sp.jandira.ui;
 
+import br.senai.sp.jandira.dao.EspecialidadeDao;
 import br.senai.sp.jandira.dao.MedicoDao;
+import br.senai.sp.jandira.model.Especialidade;
 import br.senai.sp.jandira.model.Medico;
 import br.senai.sp.jandira.model.OperacaoEnum;
 import java.time.LocalDate;
@@ -21,6 +23,7 @@ public class MedicoDialog extends javax.swing.JDialog {
         initComponents();
         this.operacao = operacao;
         preencherTitulo();
+        preencherListaDeEspecialidades();
     }
     
     public MedicoDialog(
@@ -37,7 +40,10 @@ public class MedicoDialog extends javax.swing.JDialog {
         
         preencherFormulario();
         preencherTitulo();
-
+    }
+    
+    private void preencherListaDeEspecialidades() {
+        listEspecialidades.setModel(EspecialidadeDao.getListaDeEspecialidades());
     }
     
     private void preencherFormulario() {
@@ -225,11 +231,7 @@ public class MedicoDialog extends javax.swing.JDialog {
         listEspecialidades.setBackground(new java.awt.Color(255, 255, 255));
         listEspecialidades.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         listEspecialidades.setForeground(new java.awt.Color(0, 0, 0));
-        listEspecialidades.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
+        listEspecialidades.setToolTipText("");
         scrollEspecialidades.setViewportView(listEspecialidades);
 
         jPanel2.add(scrollEspecialidades);
@@ -254,11 +256,6 @@ public class MedicoDialog extends javax.swing.JDialog {
         listEspecialidadesDoMedico.setBackground(new java.awt.Color(255, 255, 255));
         listEspecialidadesDoMedico.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         listEspecialidadesDoMedico.setForeground(new java.awt.Color(0, 0, 0));
-        listEspecialidadesDoMedico.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         scrollEspecialidadesDoMedico.setViewportView(listEspecialidadesDoMedico);
 
         jPanel2.add(scrollEspecialidadesDoMedico);
@@ -403,8 +400,8 @@ public class MedicoDialog extends javax.swing.JDialog {
     private javax.swing.JLabel labelNomeDoMedico;
     private javax.swing.JLabel labelTelefone;
     private javax.swing.JLabel labelTitulo;
-    private javax.swing.JList<String> listEspecialidades;
-    private javax.swing.JList<String> listEspecialidadesDoMedico;
+    private javax.swing.JList<Especialidade> listEspecialidades;
+    private javax.swing.JList<Especialidade> listEspecialidadesDoMedico;
     private javax.swing.JScrollPane scrollEspecialidades;
     private javax.swing.JScrollPane scrollEspecialidadesDoMedico;
     private javax.swing.JTextField textFieldCodigo;
