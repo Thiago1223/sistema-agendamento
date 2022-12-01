@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.dao;
 
+import br.senai.sp.jandira.model.Especialidade;
 import br.senai.sp.jandira.model.Medico;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -12,6 +13,7 @@ import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -120,6 +122,19 @@ public class MedicoDao {
         }
     }
     
+    public static ArrayList<Especialidade> separarEspecialidades(String linha) {
+        String[] vetor = linha.split(";");
+        int codigoEsp = 6;
+        
+        ArrayList<Especialidade> especialidades = new ArrayList<>();
+        
+        while (vetor.length > codigoEsp) {
+            especialidades.add(EspecialidadeDao.getEspecialidade(Integer.valueOf(vetor[codigoEsp])));
+            codigoEsp++;
+        }
+        return especialidades;
+    }
+    
     public static void criarListaDeMedicos() {
 
         try {
@@ -138,7 +153,8 @@ public class MedicoDao {
                         vetor[3],
                         vetor[4],
                         LocalDate.parse(vetor[5]),
-                        Integer.valueOf(vetor[0]));
+                        Integer.valueOf(vetor[0]),
+                        separarEspecialidades(linha));
 
                 // Guardar a especialidade na lista
                 medicos.add(m);
@@ -156,6 +172,29 @@ public class MedicoDao {
                     "Ocorreu um erro ao ler o arquivo.");
         }
 
+    }
+    
+    public static DefaultListModel<Especialidade> getEspModel() {
+        
+        DefaultListModel<Especialidade> especialidadeLista = new DefaultListModel<Especialidade>();
+        
+        try {
+            BufferedReader leitor = Files.newBufferedReader(PATH);
+            
+            String linha = leitor.readLine();
+            
+            for (Especialidade e : separarEspecialidades(linha)) {
+                especialidadeLista.addElement(e);
+            }
+            
+            leitor.close();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro!");
+        }
+        
+        return especialidadeLista;
+        
     }
     
     public static DefaultTableModel getTabelaMedico() {
